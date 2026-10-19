@@ -1,0 +1,13 @@
+{
+  "name": "cloudops-agent-skills",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=22" },
+  "scripts": {
+    "validate": "node scripts/validate-skills.mjs",
+    "sync": "node scripts/sync-codex-plugin.mjs",
+    "test": "node --test tests/*.test.mjs",
+    "test:coverage": "node --test --experimental-test-coverage --test-coverage-lines=80 --test-coverage-branches=70 --test-coverage-include='scripts/lib/**' tests/*.test.mjs",
+    "check": "npm run validate && npm run test:coverage"
+  }
+}
