@@ -1,0 +1,16 @@
+{
+  "name": "cloudops",
+  "owner": {
+    "name": "CloudOps Agent Skills"
+  },
+  "metadata": {
+    "description": "Natural-language DevOps & SRE on AWS, Google Cloud and Azure through their official CLIs"
+  },
+  "plugins": [
+    {
+      "name": "cloudops",
+      "source": "./",
+      "description": "Deploy services, rent servers, manage config and troubleshoot on AWS, GCP and Azure with one sentence — via aws, gcloud and az"
+    }
+  ]
+}
