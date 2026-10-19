@@ -1,0 +1,36 @@
+{
+  "name": "cloudops",
+  "version": "2.0.0",
+  "description": "Natural-language DevOps & SRE on AWS, Google Cloud and Azure via aws, gcloud and az — deploy, provision, configure, scale, observe, troubleshoot",
+  "author": {
+    "name": "CloudOps Agent Skills"
+  },
+  "repository": "https://github.com/<your-org>/cloudops-agent-skills",
+  "license": "MIT",
+  "keywords": [
+    "aws",
+    "gcp",
+    "azure",
+    "devops",
+    "sre",
+    "cloud",
+    "multi-cloud"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "CloudOps",
+    "shortDescription": "One sentence to deploy and operate on AWS, GCP and Azure",
+    "longDescription": "CLI-based skills that let an agent deploy services, rent servers, manage configuration, scale, read logs and metrics, and troubleshoot on AWS, Google Cloud and Azure using the official aws, gcloud and az CLIs — with explicit cost and destructive-action confirmation. Works with both Claude Code and OpenAI Codex.",
+    "developerName": "CloudOps Agent Skills",
+    "category": "Developer Tools",
+    "capabilities": [
+      "Read",
+      "Write"
+    ],
+    "defaultPrompt": [
+      "Deploy this project to the cloud",
+      "Rent a small Linux server on AWS in Tokyo",
+      "Why is my Cloud Run service returning 502?"
+    ]
+  }
+}
