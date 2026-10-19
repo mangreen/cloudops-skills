@@ -16,7 +16,7 @@
 ### Claude Code
 
 ```bash
-claude plugin marketplace add <your-org>/cloudops-agent-skills && claude plugin install cloudops@cloudops
+claude plugin marketplace add mangreen/cloudops-skills && claude plugin install cloudops@cloudops
 ```
 
 更新：

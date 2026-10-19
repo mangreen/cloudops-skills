@@ -32,5 +32,5 @@ First release as a multi-cloud plugin. The structure was adapted from the single
 - ECS Express custom-domain attachment has no verified CLI path; `cpu`/`memory` units follow the API model, which conflicts with AWS's example ([ERR](.agents/errors/ERR-20261018-ecs-express-cpu-memory-unit-conflict.md)).
 - Azure budgets with notifications are not covered.
 
-[Unreleased]: https://github.com/<your-org>/cloudops-agent-skills/compare/v2.0.0...HEAD
-[2.0.0]: https://github.com/<your-org>/cloudops-agent-skills/releases/tag/v2.0.0
+[Unreleased]: https://github.com/mangreen/cloudops-skills/compare/v2.0.0...HEAD
+[2.0.0]: https://github.com/mangreen/cloudops-skills/releases/tag/v2.0.0

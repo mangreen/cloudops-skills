@@ -5,7 +5,7 @@
   "author": {
     "name": "CloudOps Agent Skills"
   },
-  "repository": "https://github.com/<your-org>/cloudops-agent-skills",
+  "repository": "https://github.com/mangreen/cloudops-skills",
   "license": "MIT",
   "keywords": ["aws", "gcp", "azure", "aws-cli", "gcloud", "azure-cli", "devops", "sre", "cloud", "deployment", "multi-cloud"]
 }
