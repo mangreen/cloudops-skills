@@ -1,0 +1,40 @@
+# Secret scanning policy (engineering spec §4.3). Extends gitleaks' default rules.
+title = "cloudops-agent-skills"
+
+[extend]
+useDefault = true
+
+# NOTE: the spec's raw patterns are intentionally tightened. The spec's `sk-[a-zA-Z0-9]`
+# alone matches `disk-size`, `task-definition`, `task-role`; a word boundary and a minimum
+# length keep the signal. Placeholders from the spec's Placeholder Policy are allowed.
+
+[[rules]]
+id = "spec-hardcoded-password"
+description = "Hard-coded password assignment"
+regex = '''(?i)\bpassword\s*[:=]\s*['"][^'"\s]{4,}['"]'''
+keywords = ["password"]
+
+[[rules]]
+id = "spec-hardcoded-secret"
+description = "Hard-coded secret assignment"
+regex = '''(?i)\bsecret\s*[:=]\s*['"][^'"\s]{4,}['"]'''
+keywords = ["secret"]
+
+[[rules]]
+id = "spec-hardcoded-api-key"
+description = "Hard-coded API key assignment"
+regex = '''(?i)\bapi[_-]?key\s*[:=]\s*['"][^'"\s]{4,}['"]'''
+keywords = ["api"]
+
+[[rules]]
+id = "spec-openai-style-key"
+description = "OpenAI-style secret key"
+regex = '''\bsk-[A-Za-z0-9_-]{20,}'''
+keywords = ["sk-"]
+
+[allowlist]
+description = "Spec placeholder policy: obviously harmless placeholders"
+regexes = [
+  '''your-[a-z-]+-here''',
+  '''changeme''',
+]
