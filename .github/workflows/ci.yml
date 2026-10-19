@@ -1,0 +1,66 @@
+name: ci
+
+# Gates for every push and PR (GitHub Flow: main only receives changes that pass these):
+#   1. check   - structure validation + unit tests with a coverage gate (lines >= 80 %)
+#   2. mirror  - plugins/cloudops/ (generated Codex plugin) must match root skills/
+#   3. secrets - gitleaks over the full git history (policy in .gitleaks.toml)
+# There are no npm dependencies, so there is nothing for `npm audit` to scan.
+
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: '22'
+      - name: Validate skills and manifests, run tests with coverage gate
+        run: npm run check
+
+  mirror:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: '22'
+      - name: Regenerate Codex plugin
+        run: node scripts/sync-codex-plugin.mjs
+      - name: Verify it matches the committed output
+        run: |
+          if [[ -n "$(git status --porcelain=v1 --untracked-files=all -- plugins/cloudops)" ]]; then
+            echo "::error::plugins/cloudops is out of sync with root skills/. Run: npm run sync and commit the result."
+            exit 1
+          fi
+
+  secrets:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
+        with:
+          fetch-depth: 0            # scan the whole history, not just the PR tip
+          persist-credentials: false
+      - name: Install gitleaks (pinned, checksum-verified)
+        env:
+          GITLEAKS_VERSION: '8.18.4'
+        run: |
+          base="https://github.com/gitleaks/gitleaks/releases/download/v${GITLEAKS_VERSION}"
+          curl -sSfL -O "${base}/gitleaks_${GITLEAKS_VERSION}_linux_x64.tar.gz"
+          curl -sSfL -O "${base}/gitleaks_${GITLEAKS_VERSION}_checksums.txt"
+          sha256sum --ignore-missing -c "gitleaks_${GITLEAKS_VERSION}_checksums.txt"
+          tar -xzf "gitleaks_${GITLEAKS_VERSION}_linux_x64.tar.gz" gitleaks
+      - name: Scan for committed secrets
+        run: ./gitleaks detect --source . --config .gitleaks.toml --redact --no-banner
