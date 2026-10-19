@@ -1,0 +1,14 @@
+{
+  "name": "cloudops",
+  "interface": {
+    "displayName": "CloudOps"
+  },
+  "plugins": [
+    {
+      "name": "cloudops",
+      "source": { "source": "local", "path": "./plugins/cloudops" },
+      "policy": { "installation": "AVAILABLE", "authentication": "ON_INSTALL" },
+      "category": "Developer Tools"
+    }
+  ]
+}

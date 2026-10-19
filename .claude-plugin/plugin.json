@@ -1,0 +1,11 @@
+{
+  "name": "cloudops",
+  "description": "Natural-language DevOps & SRE on AWS, Google Cloud and Azure via aws, gcloud and az — deploy, provision, configure, scale, observe, troubleshoot",
+  "version": "2.0.0",
+  "author": {
+    "name": "CloudOps Agent Skills"
+  },
+  "repository": "https://github.com/<your-org>/cloudops-agent-skills",
+  "license": "MIT",
+  "keywords": ["aws", "gcp", "azure", "aws-cli", "gcloud", "azure-cli", "devops", "sre", "cloud", "deployment", "multi-cloud"]
+}
